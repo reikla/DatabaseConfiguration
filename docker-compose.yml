@@ -1,0 +1,21 @@
+version: '3.7'
+
+volumes:
+ mongodb:
+
+services:  
+  mongodb:
+    image: mongo
+    container_name: servicegrid-mongodb
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=Secret#1
