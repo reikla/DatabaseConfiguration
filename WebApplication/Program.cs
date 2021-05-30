@@ -24,7 +24,7 @@ namespace WebApplication
           webBuilder.UseStartup<Startup>();
           webBuilder.ConfigureAppConfiguration((_, builder) =>
           {
-            builder.AddDatabaseConfiguration("Settings", "Service1");
+            builder.AddDatabaseConfiguration("Settings", "Service1", true);
           });
         });
   }
