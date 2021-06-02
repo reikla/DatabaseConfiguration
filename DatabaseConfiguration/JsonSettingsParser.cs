@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace DatabaseConfiguration
 {
+  //Mainly copied from NET Core FW
   internal class JsonConfigurationFileParser
   {
     private JsonConfigurationFileParser()

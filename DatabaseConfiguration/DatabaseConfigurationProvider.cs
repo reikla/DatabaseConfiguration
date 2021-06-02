@@ -3,9 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Primitives;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -32,6 +30,7 @@ namespace DatabaseConfiguration
       _collectionName = collectionName;
       Configuration = configuration;
 
+      //TODO: reload funktioniert noch nicht. Eventuell Microsoft.Extensions.Configuration.FileConfigurationSource ansehen.
       if (reloadOnChange)
       {
         NotifyConfigurationChanged.OnConfigurationChanged = (collection) =>
