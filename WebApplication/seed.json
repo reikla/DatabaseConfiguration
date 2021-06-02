@@ -1,0 +1,19 @@
+{
+  "Redis": {
+    "Host": "servicegrid-redis"
+  },
+  "SgSystemConfiguration": {
+    "DatabaseUri": "mongodb://service-grid-persistence:27017",
+    "AdminUser": "root",
+    "AdminUserPassword": "Secret#1"
+  },
+  "HostingInformationConfiguration": {
+    "Uri": "https://identity-service:9430"
+  },
+  "MqttClientConfig": {
+    "Certificate": {
+      "Path": "/app/certs/ccb.scadacert",
+      "Alias": ""
+    }
+  }
+}

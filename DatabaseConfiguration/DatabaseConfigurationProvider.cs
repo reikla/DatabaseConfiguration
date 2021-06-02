@@ -6,6 +6,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace DatabaseConfiguration
 {
@@ -52,9 +53,12 @@ namespace DatabaseConfiguration
       var client = new MongoClient(connectionString);
 
       var database = client.GetDatabase(_databaseName);
+
+      
       var collection = database.GetCollection<BsonDocument>(_collectionName);
 
       var documents = collection.AsQueryable();
+      SeedData(collection, documents);
 
       var myData = BsonTypeMapper.MapToDotNetValue(documents.First());
 
@@ -72,5 +76,16 @@ namespace DatabaseConfiguration
       Data = JsonConfigurationFileParser.Parse(stream);
       OnReload();
     }
+
+    private void SeedData(IMongoCollection<BsonDocument> collection,IMongoQueryable<BsonDocument> documents)
+    {
+      if (!documents.Any())
+      {
+        collection.InsertOne(BsonDocument.Parse(JsonData));
+
+      }
+    }
+
+    private string JsonData => File.ReadAllText("seed.json");
   }
 }

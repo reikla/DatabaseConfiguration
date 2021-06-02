@@ -12,19 +12,25 @@ namespace WebApplication
     private readonly IOptionsMonitor<SgSystemConfiguration> _monitor;
     private readonly IConfiguration _configuration;
     private readonly SgSystemConfiguration _config;
-    public ConfigurationController(IOptionsMonitor<SgSystemConfiguration> monitor, IOptions<SgSystemConfiguration> options, IConfiguration configuration)
+    public ConfigurationController(IOptionsSnapshot<SgSystemConfiguration> options, IConfiguration configuration)
     {
-      _monitor = monitor;
       _configuration = configuration;
-      _config = options.Value;
 
-      _config = monitor.Get(Options.DefaultName);
+      _config = options.Value;
     }
     
     [HttpGet]
     public IActionResult Index()
     {
       return Json(_config);
+    }
+
+    [HttpGet("wholeconfig")]
+    public IActionResult GetConfig()
+    {
+      var configroot = _configuration as IConfigurationRoot;
+
+      return Ok(configroot.GetDebugView());
     }
     
     [HttpGet("{collection}")]
